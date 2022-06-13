@@ -9,9 +9,16 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 };
 
 export const postHandler: APIGatewayProxyHandlerV2 = async (event) => {
+  if (!event.body) {
+    return {
+      statusCode: 400,
+      headers: { 'Content-Type': 'text/plan' },
+      body: 'Empty body',
+    };
+  }
   return {
-    statusCode: 500,
+    statusCode: 200,
     headers: { 'Content-Type': 'application/json' },
-    body: `{ "errorMessage": "You sux" }`,
+    body: `{ "message": "You sux, ${event.body}" }`,
   };
 };
