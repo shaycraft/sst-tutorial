@@ -4,6 +4,10 @@ import { DynamoDB } from 'aws-sdk';
 const dynamoDb = new DynamoDB.DocumentClient();
 
 export async function counterHandler(event: any): Promise<any> {
+  const tableName = await new DynamoDB()
+    .describeTable({ TableName: 'Ticker' })
+    .promise();
+
   const putParams = {
     TableName: process.env.tableName || 'default',
     Key: {
